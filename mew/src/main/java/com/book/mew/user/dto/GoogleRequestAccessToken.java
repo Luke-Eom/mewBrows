@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UserResponse {
-    private Long id;
-    private String userId;
-    private String userName;
-    private String userEmail;
+public class GoogleRequestAccessToken {
+    private String code;
+    private String client_id;
+    private String client_secret;
+    private String redirect_uri;
+    private String grant_type;
 
 }

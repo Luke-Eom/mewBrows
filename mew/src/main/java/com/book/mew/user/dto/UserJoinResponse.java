@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class UserJoinResponse {
     private long id;
+
 }
