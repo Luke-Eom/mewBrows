@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserService {
     private final List<SocialLoginService> loginServices;
     private final UserRepository userRepo;

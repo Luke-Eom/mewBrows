@@ -66,7 +66,7 @@ public class KakaoLoginServiceImpl implements SocialLoginService{
     @Override
     public SocialUserResponse getUserInfo(String accessToken) {
         Map<String ,String> headerMap = new HashMap<>();
-        headerMap.put("authorization", "Bearer" + accessToken);
+        headerMap.put("authorization", "Bearer " + accessToken);
         ResponseEntity<?> response = kUserApi.getUserInfo(headerMap);
 
         log.info("카카오 사용자 정보");
