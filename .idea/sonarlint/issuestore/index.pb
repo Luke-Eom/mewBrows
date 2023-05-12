@@ -51,3 +51,9 @@ q
 Amew/src/main/java/com/book/mew/user/feign/kakao/KakaoAuthApi.java,0\9\0993163c06437982328a0a9da9b49c0b4a665095
 r
 Bmew/src/main/java/com/book/mew/user/repository/UserRepository.java,0\3\0363afde5bdb40cda1a35b4b2f9e72149f7f2b8a
+h
+8mew/src/main/java/com/book/mew/user/enums/LoginType.java,2\d\2d96d0916c79ebfa5c28666b1d8a69f1f1ff5602
+v
+Fmew/src/main/java/com/book/mew/user/service/KakaoLoginServiceImpl.java,e\a\ea2740dddbe6c55be8705626c9f96335aca5d43d
+l
+<mew/src/main/java/com/book/mew/user/service/UserService.java,2\4\24c94968aaa9a7af7397eb1f5cca9dc8f828ed04

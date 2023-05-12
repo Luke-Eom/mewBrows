@@ -1,0 +1,5 @@
+
+i	java:S116"TRename this field "client_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Žî¸ë
+s	java:S116"XRename this field "client_secret" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤º®+8šÚï¢€1
+l	java:S116"WRename this field "redirect_uri" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘¶¡û
+v	java:S116"URename this field "grant_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù¥åìûÿÿÿÿ8–«½¢€1
