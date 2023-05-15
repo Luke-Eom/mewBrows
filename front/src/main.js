@@ -2,5 +2,16 @@ import { createApp } from 'vue'
 import store from "@/scripts/store"
 import router from "@/scripts/router";
 import App from './App.vue'
+import { BootstrapVue3, IconsPlugin } from 'bootstrap-vue-3'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+import request from './utils/request'
+import cookie from '@/utils/cookie.js'
 
-createApp(App).use(store).use(router).mount('#app')
+const app = createApp(App);
+
+app.use(store).use(router).use(BootstrapVue3).use(IconsPlugin).mount('#app');
+
+app.config.productionTip = false;
+app.prototype.$axios = request;
+app.prototype.$cookie = cookie;

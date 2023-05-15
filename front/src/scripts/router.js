@@ -1,17 +1,23 @@
 import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import ScheduleCustomer from "@/pages/ScheduleCustomer";
+import Login from "@/pages/loginViews/Login";
 import {createRouter, createWebHistory} from "vue-router/dist/vue-router";
 
 const routes = [
     {path: '/', component: Home},
     {path: '/login', component: Login},
-    {path: '/schedule', component: ScheduleCustomer},
+    { path: '/kakao-login', name: 'KakaoLogin', component: () => import('@/pages/loginViews/KakaoLogin') },
+    { path: '/naver-login', name: 'NaverLogin', component: () => import('@/pages/loginViews/NaverLogin') },
+    { path: '/google-login', name: 'GoogleLogin', component: () => import('@/pages/loginViews/GoogleLogin') }
 ]
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    // eslint-disable-next-line no-unused-vars
+    scrollBehavior(to, from, savedPosition) {
+        return { x: 0, y: 0 }
+    }
+
 })
 
 export default router;
