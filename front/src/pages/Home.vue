@@ -43,7 +43,7 @@ export default {
     const state = reactive({
         items: []
     })
-    axios.get("/eyes/api/cats").then(({data}) => {
+    axios.get("/api/schedule/surgery-types").then(({data}) => {
       console.log(data);
       state.items = data;
       })

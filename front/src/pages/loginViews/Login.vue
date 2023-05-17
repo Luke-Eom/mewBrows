@@ -95,7 +95,7 @@
 
 <script>
 export default {
-  name: "Main",
+  name: "Login",
   data() {
     return {
       userKey: this.$cookie.getCookie('user-key'),

@@ -18,6 +18,7 @@ export default {
     Header,
     Footer
   },
+
   setup() {
       const check = () => {
         axios.get("/account/check").then(({data}) => {
@@ -31,6 +32,7 @@ export default {
       })
     }
 }
+
 </script>
 
  <style>

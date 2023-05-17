@@ -14,15 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
 @Qualifier("kakaoLogin")
 public class KakaoLoginServiceImpl implements SocialLoginService{
