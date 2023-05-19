@@ -23,6 +23,7 @@ public class UserController {
 
         return ResponseEntity.created(URI.create("/social-login"))
                 .body(userService.doSocialLogin(request));
+
     }
 
     // dynamic url, 회원 조회

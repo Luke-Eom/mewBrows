@@ -1,9 +1,9 @@
 <template>
 
               <div class="card shadow-sm" >
-                <span class="img" :style="{backgroundImage: `url(${item.imgPath})`}" />
+                <span class="img" :style="{backgroundImage: `url(${item.imgUrl})`}" />
                 <div class="card-body">
-                  <p class="card-text">{{ item.name }}</p>
+                  <p class="card-text">{{ item.surgeryType }}</p>
                   <div class="d-flex justify-content-between align-items-center">
                    <span class="discount badge bg-danger">할인중</span>
                    <div class="btn-group">
@@ -20,7 +20,7 @@
   export default{
     name: "Card",
     props: {
-    item: String
+    item: Object
     }
   }
 
