@@ -20,16 +20,12 @@ public class User extends CommonEntity {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(length = 50)
     private String userId;
-
     @Column(length = 50)
     private String userName;
-
     @Column(length = 50)
     private String userEmail;
-
     @Column(columnDefinition = "ENUM('KAKAO', 'NAVER', 'GOOGLE', 'NORMAL') DEFAULT 'NORMAL'")
     @Enumerated(EnumType.STRING)
     private LoginType loginType;

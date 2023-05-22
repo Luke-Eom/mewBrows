@@ -105,12 +105,8 @@ E
 front/babel.config.js,4\a\4ad5ffd0e116027f3ec9d2c3839f83f0099208b3
 Y
 )front/src/pages/loginViews/NaverLogin.vue,b\1\b13e1495c822ed2e0d897a97eb08e354c3c4cab3
-Y
-)front/src/pages/loginViews/KakaoLogin.vue,9\6\96d7a6ee65ac4dc1cb0446d687e1e5416db25e7a
 Z
 *front/src/pages/loginViews/GoogleLogin.vue,7\2\72fdf755aa865831b005e0c743a7d8d209e6bf1a
-O
-front/src/mixins/socialLogin.js,c\3\c3c3b2463a0e316afdcb4e14cc6a0909a24b9000
 f
 6front/src/assets/scss/vendors/bootstrap-vue/index.scss,7\8\78d049b9aa52b3e82b62a5017a48bc26fa35a98e
 I

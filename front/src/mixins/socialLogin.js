@@ -11,7 +11,7 @@ const socialLogin = {
             const apiPath = '/user/social-login'
             const bodyData = {
                 code: this.$route.query.code,
-                userType: socialType
+                loginType: socialType
             }
             this.$axios.post(apiPath, bodyData).then(response => {
                 this.loginResult.status = 'SUCCESS'
