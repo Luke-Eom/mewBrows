@@ -6,11 +6,10 @@ import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.entity.Schedule;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.schedule.repository.ScheduleRepository;
-import com.book.mew.user.dto.LoginResponse;
 import com.book.mew.user.entity.User;
-import com.book.mew.user.exceptions.NotFoundException;
 import com.book.mew.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,67 +23,79 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepo;
     private final UserRepository userRepo;
 
-    // READ (find -> Response로 매핑)
+    // READ (find -> Response 로 매핑)
 
     // 예약 승인 조회
-    public ArrayList<ScheduleResponse> selectConfirmedSchedules() {
-        ArrayList<Schedule> schedules = (ArrayList<Schedule>) scheduleRepo.findAll();
-        ArrayList<ScheduleResponse> scheduleList = new ArrayList<>(schedules.stream()
+    public List<ScheduleResponse> selectConfirmedSchedules() {
+        List<Schedule> schedules = scheduleRepo.findAll();
+
+        return new ArrayList<>(schedules.stream()
                 .filter(schedule -> schedule.getScheduleTime().isAfter(LocalDateTime.now()))
                 .filter(schedule -> schedule.getStatus() == Status.CONFIRM)
                 .sorted(Comparator.comparing(Schedule::getScheduleTime))
                 .map(Schedule::toDto)
                 .collect(Collectors.toList()));
 
-        return scheduleList;
-
     }
 
     // 예약 대기 조회
-    public ArrayList<ScheduleResponse> selectComfirmWaitSchedules() {
-        ArrayList<Schedule> schedules = (ArrayList<Schedule>) scheduleRepo.findAll();
-        ArrayList<ScheduleResponse> scheduleList = new ArrayList<>(schedules.stream()
+    public List<ScheduleResponse> selectConfirmWaitSchedules() {
+        List<Schedule> schedules = scheduleRepo.findAll();
+
+        return new ArrayList<>(schedules.stream()
                 .filter(schedule -> schedule.getScheduleTime().isAfter(LocalDateTime.now()))
                 .filter(schedule -> schedule.getStatus()== Status.CONFIRM_WAIT)
                 .sorted(Comparator.comparing(Schedule::getScheduleTime))
                 .map(Schedule::toDto)
                 .collect(Collectors.toList()));
 
-        return scheduleList;
-
     }
 
     // 취소 대기 조회
-    public ArrayList<ScheduleResponse> selectCancelWaitSchedules() {
-        ArrayList<Schedule> schedules = (ArrayList<Schedule>) scheduleRepo.findAll();
-        ArrayList<ScheduleResponse> scheduleList = new ArrayList<>(schedules.stream()
+    public List<ScheduleResponse> selectCancelWaitSchedules() {
+        List<Schedule> schedules = scheduleRepo.findAll();
+
+        return new ArrayList<>(schedules.stream()
                 .filter(schedule -> schedule.getScheduleTime().isAfter(LocalDateTime.now()))
                 .filter(schedule -> schedule.getStatus() == Status.CANCEL_WAIT)
                 .sorted(Comparator.comparing(Schedule::getScheduleTime))
                 .map(Schedule::toDto)
                 .collect(Collectors.toList()));
 
-        return scheduleList;
+    }
+
+    // 취소 확정 조회
+    public List<ScheduleResponse> selectCancelConfirmSchedules() {
+        List<Schedule> schedules = scheduleRepo.findAll();
+
+        return new ArrayList<>(schedules.stream()
+                .filter(schedule -> schedule.getScheduleTime().isAfter(LocalDateTime.now()))
+                .filter(schedule -> schedule.getStatus() == Status.CANCEL_CONFIRM)
+                .sorted(Comparator.comparing(Schedule::getScheduleTime))
+                .map(Schedule::toDto)
+                .collect(Collectors.toList()));
 
     }
 
     // UserService 로 추후 변경 (User - List<Schedule>)
     // param
     // user 검색해서 예약 조회 (param)
-    public ArrayList<ScheduleResponse> selectScheduleByUserName(Long id) throws Throwable {
-        ArrayList<Schedule> schedules = (ArrayList<Schedule>) scheduleRepo.findByUserId(id).orElseThrow(() -> new NotFoundException("ERROR_404","정보가 없습니다"));
-        ArrayList<ScheduleResponse> scheduleList = new ArrayList<>(schedules.stream()
+    public ArrayList<ScheduleResponse> selectScheduleByUserName(Long id) {
+        List<Schedule> schedules = scheduleRepo.findByUserId(id);
+
+        return new ArrayList<>(schedules.stream()
                 .filter(schedule -> schedule.getScheduleTime().isAfter(LocalDateTime.now()))
                 .sorted(Comparator.comparing(Schedule::getScheduleTime))
                 .map(Schedule::toDto)
                 .collect(Collectors.toList()));
 
-        return scheduleList;
-
     }
+
+    // 설정한 날짜 범위 내의 예약들 확인 filter
 
     // 예약 생성
     // param (default status = CONFIRM_WAIT)
+    @Transactional
     public ScheduleRegisterResponse insertSchedule(ScheduleRequest scheduleRequest) {
         Optional<User> user = userRepo.findByUserId(scheduleRequest.getUser());
         Schedule schedule = scheduleRepo.save(
@@ -99,6 +110,14 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
                 .id(schedule.getId())
                 .build();
     }
+
+    // 예약 수정
+    // (관리자 - 승인 status(CONFIRM_WAIT->CONFIRM))
+    // if(getStatus == Status.CONFIRM_WAIT)
+
+    // 예약 삭제
+    // (관리자 - 승인 status(CANCEL_WAIT-> delete schedule()))
+    // if (getStatus == Status.CANCEL_WAIT)
 
 
 }

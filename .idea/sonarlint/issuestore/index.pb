@@ -123,13 +123,9 @@ A
 front/src/App.vue,f\1\f1f4871135cd15ad36419ae57889e9b9685e860f
 J
 front/src/utils/request.js,d\1\d1c5a6710c6d15b21bf53735bdecf8db06009136
-T
-$front/src/pages/loginViews/Login.vue,e\0\e00f004a6bd31adce87a19e2da253af6cb17aa68
 O
 front/src/components/Header.vue,1\3\134082f1aeb9013d34c7ba286a793c871005a75f
 Q
 !front/src/components/Carousel.vue,b\f\bff9400e9dcc568416c080356abd5529c23d587c
 B
 front/package.json,9\f\9f133e1f3b36f3ee5044a78511e53520382b1b19
-C
-front/vue.config.js,5\f\5fe2fef66f82930e783d364689913f77731b4b44
