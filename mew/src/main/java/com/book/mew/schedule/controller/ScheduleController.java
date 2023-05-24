@@ -4,7 +4,9 @@ import com.book.mew.schedule.dto.ScheduleRegisterResponse;
 import com.book.mew.schedule.dto.ScheduleRequest;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.service.ScheduleAdminServiceImpl;
+import com.book.mew.user.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,8 +71,31 @@ public class ScheduleController {
     // 예약 상태 수정
 
         // 예약 대기 -> 예약 승인
+    @PutMapping("/{scheduleId}/confirm")
+    public ResponseEntity<String> confirmSchedule(@PathVariable Long scheduleId) {
+        try {
+            sAdminService.confirmSchedule(scheduleId);
+            return ResponseEntity.ok("Schedule confirmed successfully.");
+
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+        }
+    }
 
         // 예약 취소 대기 -> 취소 확정 (추후 push alarm)
+    @PutMapping("/{scheduleId}/cancel")
+    public ResponseEntity<String> cancelSchedule(@PathVariable Long scheduleId) {
+        try {
+            sAdminService.cancelSchedule(scheduleId);
+            return ResponseEntity.ok("Schedule canceled successfully.");
+
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+        }
+    }
+
 
         // 예약 대기 -> 취소 (고객 문의 및 대면 신청으로 관리자가 바로 취소할 경우)
 

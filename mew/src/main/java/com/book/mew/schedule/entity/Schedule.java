@@ -44,4 +44,8 @@ public class Schedule {
                 .build();
     }
 
+    public void updateStatus(Status status) {
+        this.status = status;
+    }
+
 }

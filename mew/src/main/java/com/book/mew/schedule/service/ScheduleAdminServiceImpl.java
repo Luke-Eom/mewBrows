@@ -7,6 +7,7 @@ import com.book.mew.schedule.entity.Schedule;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.schedule.repository.ScheduleRepository;
 import com.book.mew.user.entity.User;
+import com.book.mew.user.exceptions.NotFoundException;
 import com.book.mew.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,7 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
 
     // READ (find -> Response 로 매핑)
 
-    // 예약 승인 조회
+        // 예약 승인 조회
     public List<ScheduleResponse> selectConfirmedSchedules() {
         List<Schedule> schedules = scheduleRepo.findAll();
 
@@ -38,7 +39,7 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
 
     }
 
-    // 예약 대기 조회
+        // 예약 대기 조회
     public List<ScheduleResponse> selectConfirmWaitSchedules() {
         List<Schedule> schedules = scheduleRepo.findAll();
 
@@ -51,7 +52,7 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
 
     }
 
-    // 취소 대기 조회
+        // 취소 대기 조회
     public List<ScheduleResponse> selectCancelWaitSchedules() {
         List<Schedule> schedules = scheduleRepo.findAll();
 
@@ -64,7 +65,8 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
 
     }
 
-    // 취소 확정 조회
+        // 취소 확정 조회
+    @Transactional
     public List<ScheduleResponse> selectCancelConfirmSchedules() {
         List<Schedule> schedules = scheduleRepo.findAll();
 
@@ -113,7 +115,44 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
 
     // 예약 수정
     // (관리자 - 승인 status(CONFIRM_WAIT->CONFIRM))
-    // if(getStatus == Status.CONFIRM_WAIT)
+    // if(getStatus == Status.CONFIRM_WAIT), (updateRequestDto)
+    // {scheduleId}
+    @Transactional
+    public void confirmSchedule(Long scheduleId) {
+        Optional<Schedule> optionalSchedule = scheduleRepo.findById(scheduleId);
+
+        // should i simplify it?
+        if (optionalSchedule.isPresent()) {
+            Schedule schedule = optionalSchedule.get();
+            if(schedule.getStatus().equals(Status.CONFIRM_WAIT)) {
+                schedule.updateStatus(Status.CONFIRM);
+
+            }
+        } else {
+            throw new NotFoundException("ERROR404","Schedule not found");
+        }
+
+        // 기존 생성 시 ScheduleRegisterResponse 존재 -> not necessary?
+
+    }
+
+    // 취소 대기 - 취소
+    @Transactional
+    public void cancelSchedule(Long scheduleId) {
+        Optional<Schedule> optionalSchedule = scheduleRepo.findById(scheduleId);
+
+        if (optionalSchedule.isPresent()) {
+            Schedule schedule = optionalSchedule.get();
+            if(schedule.getStatus().equals(Status.CANCEL_WAIT)) {
+                schedule.updateStatus(Status.CANCEL_CONFIRM);
+
+            }
+        } else {
+            throw new NotFoundException("ERROR404","Schedule not found");
+        }
+
+    }
+
 
     // 예약 삭제
     // (관리자 - 승인 status(CANCEL_WAIT-> delete schedule()))
