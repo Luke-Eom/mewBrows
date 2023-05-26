@@ -133,6 +133,7 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
         }
 
         // 기존 생성 시 ScheduleRegisterResponse 존재 -> not necessary?
+        // return 수정된 정보
 
     }
 

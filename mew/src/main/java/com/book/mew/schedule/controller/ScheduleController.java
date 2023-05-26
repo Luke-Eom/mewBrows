@@ -31,12 +31,9 @@ public class ScheduleController {
 
         // (로그인한 회원이 바로 예약 신청할 경우)
 
+    // 예약 조회
 
-
-
-    // 예약 확인
-
-        // 전체 확인 (예약 확정 확인)
+        // 전체 조회 (예약 확정 조회)
     @GetMapping("/confirmed-schedules")
     public List<ScheduleResponse> getConfirmedSchedules() {
         return sAdminService.selectConfirmedSchedules();
@@ -45,23 +42,23 @@ public class ScheduleController {
 
         // 특정 일자 확인 (range)
 
-        // 특정 회원 확인 ()
+        // 특정 회원 확인 () -> User에서
 
-        // 예약 대기 확인
+        // 예약 대기 조회
     @GetMapping("/owait-schedules")
     public List<ScheduleResponse> getConfirmWaitSchedules() {
         return sAdminService.selectConfirmWaitSchedules();
 
     }
 
-        // 예약 취소 대기 확인
+        // 예약 취소 대기 조회
     @GetMapping("/xwait-schedules")
     public List<ScheduleResponse> getCancelWaitSchedules() {
         return sAdminService.selectCancelWaitSchedules();
 
     }
 
-        // 예약 취소 확정 확인
+        // 예약 취소 확정 조회
     @GetMapping("/xconfirmed-schedules")
     public List<ScheduleResponse> getCancelConfirmSchedules() {
         return sAdminService.selectCancelConfirmSchedules();
@@ -102,6 +99,8 @@ public class ScheduleController {
         // 예약 확정 -> 취소 (고객 문의 및 대면 신청으로 관리자가 바로 취소할 경우)
 
     // 예약 기록 삭제 (요구사항 q)
+
+    // 푸쉬알람 적용시 백엔드 로직?
 
     // front 시술 카테고리명 리스트용 -> 시술타입 파일로
 //    @GetMapping("/surgery-types")
