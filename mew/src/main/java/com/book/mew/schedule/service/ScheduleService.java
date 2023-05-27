@@ -9,10 +9,7 @@ import java.util.List;
 
 @Service
 public interface ScheduleService {
-    List<ScheduleResponse> selectConfirmedSchedules();
-    List<ScheduleResponse> selectConfirmWaitSchedules();
-    List<ScheduleResponse> selectCancelWaitSchedules();
-    List<ScheduleResponse> selectCancelConfirmSchedules();
-    ScheduleRegisterResponse insertSchedule(ScheduleRequest scheduleRequest);
+
+    // userId param -> check role and set accessibility lvl
 
 }
