@@ -129,3 +129,19 @@ Q
 !front/src/components/Carousel.vue,b\f\bff9400e9dcc568416c080356abd5529c23d587c
 B
 front/package.json,9\f\9f133e1f3b36f3ee5044a78511e53520382b1b19
+H
+front/src/pages/Home.vue,6\1\6199a873c25099f3b61368084e8fd8d8a71c95c3
+J
+front/src/scripts/store.js,0\3\03b1f1661883f15e748f33726070e794f76cafa1
+K
+front/src/scripts/router.js,2\1\212d1fe07061c9f9af91702512be7a33d8659220
+M
+front/src/components/Card.vue,d\9\d9436715d58fd2da99540849b194842f57bea74b
+Y
+)front/src/pages/loginViews/KakaoLogin.vue,9\6\96d7a6ee65ac4dc1cb0446d687e1e5416db25e7a
+O
+front/src/mixins/socialLogin.js,c\3\c3c3b2463a0e316afdcb4e14cc6a0909a24b9000
+T
+$front/src/pages/loginViews/Login.vue,e\0\e00f004a6bd31adce87a19e2da253af6cb17aa68
+C
+front/vue.config.js,5\f\5fe2fef66f82930e783d364689913f77731b4b44
