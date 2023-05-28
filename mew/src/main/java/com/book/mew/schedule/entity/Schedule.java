@@ -25,14 +25,14 @@ public class Schedule {
     private Long id;
 
     @ManyToOne
-    @Column
     private User userId;
-    @Column
-    @Enumerated(EnumType.STRING)
+    @OneToOne
     private SurgeryType surgeryType;
     @Column
     private LocalDateTime scheduleTime;
     @Column
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Status status = Status.CONFIRM_WAIT;
     public ScheduleResponse toDto() {
         return ScheduleResponse.builder()

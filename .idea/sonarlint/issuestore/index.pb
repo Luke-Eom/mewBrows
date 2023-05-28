@@ -129,8 +129,6 @@ Q
 !front/src/components/Carousel.vue,b\f\bff9400e9dcc568416c080356abd5529c23d587c
 B
 front/package.json,9\f\9f133e1f3b36f3ee5044a78511e53520382b1b19
-H
-front/src/pages/Home.vue,6\1\6199a873c25099f3b61368084e8fd8d8a71c95c3
 J
 front/src/scripts/store.js,0\3\03b1f1661883f15e748f33726070e794f76cafa1
 K
