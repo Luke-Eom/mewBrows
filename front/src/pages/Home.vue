@@ -1,8 +1,6 @@
 <template>
  <div class="Home">
 
-
-
       <section class="py-1 text-center container" >
         <Carousel/>
 
@@ -40,19 +38,38 @@ export default {
     Carousel
   },
   setup() {
-    const state = reactive({
-        items: []
-    })
-    axios.get("/api/surgery-type/all").then(({data}) => {
-      console.log(data);
-      state.items = data;
-      })
-    return {state};
+      const state = reactive({
+          items: []
+      });
+      axios.get(`/api/manage/center-menus`).then(({data}) => {
+        console.log(data);
+        state.items = data;
+        });
+      return {state};
   }
 }
 </script>
 
 <style scoped>
+.Home {
+  position: relative;
+}
+
+.Home::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(~@/assets/bgimg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  z-index: -1;
+}
+
 .img {
     display: inline-block;
     width: 100%;

@@ -10,6 +10,7 @@ import com.book.mew.user.entity.User;
 import com.book.mew.user.exceptions.NotFoundException;
 import com.book.mew.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 @RequiredArgsConstructor
 public class ScheduleAdminServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepo;

@@ -26,5 +26,8 @@ export default {
 
 
 <style scoped>
-
+.footer {
+  height: 50px;
+  padding: 10px;
+}
 </style>

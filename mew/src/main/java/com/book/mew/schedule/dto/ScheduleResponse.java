@@ -18,6 +18,7 @@ public class ScheduleResponse {
     private String scheduleTime;
     private String status;
 
+    //
     public Schedule toEntity() {
         return Schedule.builder()
                 .build();

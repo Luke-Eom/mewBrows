@@ -1,9 +1,8 @@
 <template>
-
               <div class="card shadow-sm" >
                 <span class="img" :style="{backgroundImage: `url(${item.imgUrl})`}" />
                 <div class="card-body">
-                  <p class="card-text">{{ item.surgeryType }}</p>
+                  <p class="card-text">{{ item.menu}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                    <span class="discount badge bg-danger">할인중</span>
                    <div class="btn-group">
@@ -20,7 +19,7 @@
   export default{
     name: "Card",
     props: {
-    item: Object
+    items: Object
     }
   }
 
@@ -40,4 +39,5 @@ import { useRouter } from "vue-router";
     background-size: cover;
     background-position: center;
 }
+
 </style>
