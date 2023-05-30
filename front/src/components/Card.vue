@@ -1,43 +1,21 @@
 <template>
               <div class="card shadow-sm">
-                <span class="img" :style="{backgroundImage: `url(${menu?.imgUrl})`}" />
+                <span class="img" :style="{backgroundImage: `url(${item.imgUrl})`}" />
                 <div class="card-body">
-                  <p class="card-text">{{ menu?.menu}}</p>
                   <div class="d-flex justify-content-between align-items-center">
-                   <span class="discount badge bg-danger">할인중</span>
-                   <div class="btn-group">
-                     <button type="button" class="btn btn-sm btn-outline-secondary">예약</button>
-                     <button type="button" class="btn btn-sm btn-outline-secondary" @click="pageLink()">시간표 확인</button>
-                   </div>
-                   <small class="text-muted">리뷰 보기</small>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" align="center" @click="pageLink()">{{ item.menu}}</button>
                   </div>
                 </div>
               </div>
 </template>
 
 <script>
-import axios from "axios";
-
   export default{
     name: "Card",
-    data() {
-        return {
-          menu: null,
-        };
-    },
-    created() {
-        this.centerMenu();
-    },
-    methods: {
-      centerMenu() {
-        axios.get("http://localhost:8080/api/manage/center-menus")
-          .then(({ data }) => {
-            console.log(data);
-            this.backendData = data;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+    props: {
+      item : {
+        type: Object,
+        required: true
       }
     }
   }

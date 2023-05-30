@@ -20,6 +20,10 @@
             </div>
           </div>
         </div>
+        <div>
+          <h1>추가 설명</h1>
+        </div>
+
       </div>
 
 </template>
@@ -72,7 +76,6 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.9;
   z-index: -1;
 }
 
