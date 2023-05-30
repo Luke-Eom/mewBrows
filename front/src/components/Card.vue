@@ -1,8 +1,8 @@
 <template>
-              <div class="card shadow-sm" >
-                <span class="img" :style="{backgroundImage: `url(${item.imgUrl})`}" />
+              <div class="card shadow-sm">
+                <span class="img" :style="{backgroundImage: `url(${menu?.imgUrl})`}" />
                 <div class="card-body">
-                  <p class="card-text">{{ item.menu}}</p>
+                  <p class="card-text">{{ menu?.menu}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                    <span class="discount badge bg-danger">할인중</span>
                    <div class="btn-group">
@@ -16,10 +16,29 @@
 </template>
 
 <script>
+import axios from "axios";
+
   export default{
     name: "Card",
-    props: {
-    items: Object
+    data() {
+        return {
+          menu: null,
+        };
+    },
+    created() {
+        this.centerMenu();
+    },
+    methods: {
+      centerMenu() {
+        axios.get("http://localhost:8080/api/manage/center-menus")
+          .then(({ data }) => {
+            console.log(data);
+            this.backendData = data;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     }
   }
 

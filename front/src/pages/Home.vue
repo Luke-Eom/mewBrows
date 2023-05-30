@@ -28,7 +28,7 @@
 import Card from "@/components/Card";
 import Carousel from "@/components/Carousel";
 import axios from "axios";
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 
 
 export default {
@@ -41,10 +41,16 @@ export default {
       const state = reactive({
           items: []
       });
-      axios.get(`/api/manage/center-menus`).then(({data}) => {
-        console.log(data);
-        state.items = data;
-        });
+      onMounted(() => {
+            axios.get("http://localhost:8080/api/manage/center-menus")
+              .then(({ data }) => {
+                console.log(data);
+                state.items = data;
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          });
       return {state};
   }
 }
