@@ -26,8 +26,8 @@ export default {
 
 
 <style scoped>
-.footer {
-  height: 50px;
-  padding: 10px;
+.py-5 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 </style>

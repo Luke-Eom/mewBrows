@@ -72,7 +72,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(~@/assets/bgimg.jpg);
+  background-image: url(../assets/bgimg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -89,3 +89,9 @@ export default {
     background-position: center;
 }
 </style>
+
+<!-- navbar component화
+      그리고 예약 확인 메뉴,...
+      예약확인: 검색창, 예약 상태 탭(), 상태별 리액션 버튼 & 처리 axios
+         예약 확정인 경우: 차트 생성 -> chart로 router
+ -->
