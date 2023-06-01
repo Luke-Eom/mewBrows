@@ -1,10 +1,12 @@
-import Home from "@/pages/Home";
-import Login from "@/pages/loginViews/Login";
+import Home from "../pages/Home";
+import Login from "../pages/loginViews/Login";
+import Admin from "../pages/admin/Admin.vue";
 
 import {createRouter, createWebHistory} from "vue-router/dist/vue-router";
 
 const routes = [
     {path: '/', component: Home},
+    {path: '/admin', component: Admin},
     {path: '/login', component: Login},
     { path: '/kakao-login', name: 'KakaoLogin', component: () => import('@/pages/loginViews/KakaoLogin') },
     { path: '/naver-login', name: 'NaverLogin', component: () => import('@/pages/loginViews/NaverLogin') },

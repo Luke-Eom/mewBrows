@@ -6,30 +6,7 @@
       <Footer/>
     </v-main>
   </v-app>
-  <v-card>
-    <v-layout>
-  <v-navigation-drawer
-      expand-on-hover
-      :class="{ 'expand-on-hover': isHovered }"
-      @mouseenter="isHovered = true"
-      @mouseleave="isHovered = false"
-      rail>
-    <v-list>
-      <v-list-item
-          prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-          title="Sandra Adams"
-          subtitle="sandra_a88@gmailcom"
-      ></v-list-item>
-    </v-list>
-
-    <v-divider></v-divider>
-
-    <v-list density="compact" nav>
-      <v-list-item v-for="item in items" :key="item.title" :prepend-icon="item.icon" :title="item.title"></v-list-item>
-    </v-list>
-  </v-navigation-drawer>
-    </v-layout>
-  </v-card>
+  <SideNavbar/>
 
 </template>
 
@@ -37,6 +14,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import store from "@/scripts/store";
+import SideNavbar from "./components/SideNavbar.vue";
+
 import axios from "axios";
 import {watch} from "vue";
 import {useRoute} from "vue-router";
@@ -44,6 +23,7 @@ import {useRoute} from "vue-router";
 export default {
   name: 'App',
   components: {
+    SideNavbar,
     Header,
     Footer
   },
@@ -58,17 +38,6 @@ export default {
     watch(route, () => {
       check();
     })
-  },
-
-  data: () => {
-    return {
-      isHovered: false,
-      items: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard'},
-        {title: 'Photos', icon: 'mdi-image'},
-        {title: 'About', icon: 'mdi-help-box'},
-      ]
-    }
   }
 }
 </script>
