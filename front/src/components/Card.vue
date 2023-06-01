@@ -1,15 +1,25 @@
 <template>
-              <div class="card shadow-sm">
-                <span class="img" :style="{backgroundImage: `url(${item.imgUrl})`}" />
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" align="center" @click="pageLink(item.menu)">{{ item.menu}}</button>
-                  </div>
-                </div>
-              </div>
+  <div>
+<!--    스타일수정 req
+   버튼 center
+   prepend icon 각 prop value 별로 - backend에서 iconUrl넣어주기
+-->
+    <v-container>
+      <v-card color="dark" elevation="23">
+        <v-img :src = "item.imgUrl"></v-img>
+        <div class="d-flex justify-content-between align-items-center">
+<!--          <v-btn class="btn btn-sm btn-outline-secondary" @click="openDialog">{{ item.menu}}</v-btn>-->
+<!--          추후 예약시 로그인 상태라면 유저정보 넘겨주기 with :selectedItem or selectedUser -> state, prop-->
+          <ScheduleDialog :item="item" @close-dialog="closeScheduleDialog" />
+
+        </div>
+      </v-card>
+    </v-container>
+  </div>
 </template>
 
 <script>
+import ScheduleDialog from './ScheduleDialog.vue';
   export default{
     name: "Card",
     props: {
@@ -17,16 +27,15 @@
         type: Object,
         required: true
       }
+    },
+    data() {
+      return {
+        selectedItem: null
+      };
+    },
+    components: {
+      ScheduleDialog
     }
-  }
-
-</script>
-<script setup>
-import { useRouter } from "vue-router";
-const router = useRouter();
-
-const pageLink = (path) => {
-    router.push({ path });
   }
 </script>
 <style scoped>
