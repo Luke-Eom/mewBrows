@@ -14,9 +14,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 public class ScheduleRequest {
-    private String user;
+
+    private String username;
+
+    private Integer PhoneNumber;
+
     private SurgeryType surgeryType;
+
     private LocalDateTime scheduleTime;
+
     private String status;
 
 }

@@ -10,10 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class NaverLoginResponse {
+
     @Builder.Default
     private Response response = Response.builder().build();
+
     private String resultCode;
+
     private String message;
+
 
     @Builder
     @AllArgsConstructor

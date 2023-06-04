@@ -1,4 +1,4 @@
-package com.book.mew.user.dto;
+package com.book.mew.chartRecord.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,16 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UserResponse {
+public class ChartRequest {
 
     private Long id;
 
-    private String userId;
-
-    private String userName;
-
-    private String userEmail;
-
-    private Integer userPhoneNumber;
+    private Long scheduleId;
 
 }
+

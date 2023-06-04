@@ -1,11 +1,7 @@
-package com.book.mew.chart.entity;
+package com.book.mew.chartRecord.entity;
 
 import com.book.mew.schedule.entity.Schedule;
-import com.book.mew.user.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,15 +11,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 public class Chart {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private User userId;
+
+    @OneToOne(mappedBy = "chart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Record record;
+
     @OneToOne
-    private Schedule scheduleId;
-    private String chartUrl;
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
+
+    @Setter
+    @Column(name = "ba_img_url")
+    private String baImgUrl;     // b4&after
 
     // schedule과 join?, createTime, updateTime -> Common
 }

@@ -1,5 +1,6 @@
 package com.book.mew.schedule.entity;
 
+import com.book.mew.chartRecord.entity.Chart;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.surgeryType.entity.SurgeryType;
@@ -25,19 +26,28 @@ public class Schedule {
     private Long id;
 
     @ManyToOne
-    private User userId;
-    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    // enum으로 change?
+    @ManyToOne
+    @JoinColumn(name = "surgery_type_id")
     private SurgeryType surgeryType;
-    @Column
+
+    @Column(name = "schedule_time")
     private LocalDateTime scheduleTime;
+
     @Column
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Status status = Status.CONFIRM_WAIT;
+
+    @OneToOne(mappedBy = "schedule")
+    private Chart chart;
+
     public ScheduleResponse toDto() {
         return ScheduleResponse.builder()
                 .id(this.id.toString())
-                .userName(this.userId.getUserName())
+                .userName(this.user.getUserName())
                 .scheduleTime(this.scheduleTime.toString())
                 .surgeryType(this.surgeryType.toString())
                 .status(this.status.toString())

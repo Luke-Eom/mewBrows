@@ -1,6 +1,5 @@
-package com.book.mew.surgeryType.entity;
+package com.book.mew.chartRecord.entity;
 
-import com.book.mew.surgeryType.enums.SurgeryTypes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,20 +12,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class SurgeryType {
+public class Record {
+
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    @Column
-    private SurgeryTypes surgeryType;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "chart_id")
+    private Chart chart;
 
-    @Column
-    private String detail;
-
-    @Column
+    @Column(name = "imgUrl")
     private String imgUrl;
 
 }

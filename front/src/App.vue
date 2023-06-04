@@ -6,6 +6,7 @@
       <Footer/>
     </v-main>
   </v-app>
+<!--  로그인 체크후 role에 따라 side nave bar-->
   <SideNavbar/>
 
 </template>

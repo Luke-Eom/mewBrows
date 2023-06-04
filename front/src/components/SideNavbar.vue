@@ -5,21 +5,24 @@
         <v-navigation-drawer
             expand-on-hover
             :class="{ 'expand-on-hover': isHovered }"
+            color="teal-accent-3"
             @mouseenter="isHovered = true"
             @mouseleave="isHovered = false"
             rail>
           <v-list>
             <v-list-item
-                prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-                title="Sandra Adams"
-                subtitle="sandra_a88@gmailcom"
+                prepend-avatar="../img/logo.jpg"
+                title="엄지혜"
+                subtitle="aaa@test.com"
+                color="dark"
+                class="white-text"
             ></v-list-item>
           </v-list>
 
-          <v-divider></v-divider>
+          <v-divider class="white-text"></v-divider>
 
           <v-list density="compact" nav>
-            <v-list-item v-for="item in items" :key="item.title" :prepend-icon="item.icon" :title="item.title"></v-list-item>
+            <v-list-item v-for="item in items" :key="item.title" :prepend-icon="item.icon" :title="item.title" class="white-text" @click="pageLink"></v-list-item>
           </v-list>
         </v-navigation-drawer>
       </v-layout>
@@ -34,10 +37,15 @@ export default {
     return {
       isHovered: false,
       items: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard'},
-        {title: 'Photos', icon: 'mdi-image'},
-        {title: 'About', icon: 'mdi-help-box'},
+        {title: '예약 현황', icon: 'mdi-calendar-month'},
+        {title: '회원 관리', icon: 'mdi-account-group'},
+        {title: 'Q&A', icon: 'mdi-help-box'},
       ]
+    }
+  },
+  methods: {
+    pageLink() {
+
     }
   }
 }
@@ -48,4 +56,9 @@ export default {
   width: 280px;
   transition: width 0.3s ease;
 }
+
+.white-text {
+  color: white;
+}
+
 </style>

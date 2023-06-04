@@ -1,5 +1,6 @@
 package com.book.mew.user.service;
 
+import com.book.mew.schedule.entity.Schedule;
 import com.book.mew.user.dto.*;
 import com.book.mew.user.entity.User;
 import com.book.mew.user.enums.LoginType;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,6 +29,7 @@ public class UserService {
 
         log.info("socialUserResponse {}", socialUserResponse.toString());
 
+        // 소셜 로그인 findByUserId -> findByUserEmail for non-login User (Entity)
         if(userRepo.findByUserId(socialUserResponse.getId()).isEmpty()) {
             this.joinUser(
                     UserJoinRequest.builder()
@@ -43,6 +47,7 @@ public class UserService {
         return LoginResponse.builder()
                 .id(user.getId())
                 .build();
+
     }
 
     // 로그인 서비스 타입 반환
@@ -61,15 +66,55 @@ public class UserService {
         User user = userRepo.save(
                 User.builder()
                         .userId(userJoinRequest.getUserId())
+                        .userName(userJoinRequest.getUserName())
                         .loginType(userJoinRequest.getLoginType())
                         .userEmail(userJoinRequest.getUserEmail())
-                        .userName(userJoinRequest.getUserName())
+                        .phoneNumber(userJoinRequest.getPhoneNumber())
                         .build()
         );
 
         return UserJoinResponse.builder()
                 .id(user.getId())
                 .build();
+
+    }
+
+    //회원 등록 by admin(admin일때만 가능하게)
+    // (회원 가입 part에서 phoneNumber 또는 unique한 value 중복있을 시,
+    // 로그인 타입이 default이면 로그인 타입을 바꿔주고 추가 데이터 업데이트) - code update req
+    public UserRegisterResponse registerUser(UserRegisterRequest userRegisterRequest) {
+        // 회원 중복 체크 로직 추후 추가 - UserResponse msg set
+        String msg = null;
+        User user = new User();
+
+        if(userRepo.findByUserPhoneNumber(userRegisterRequest.getPhoneNumber()).isEmpty()) {
+            userRepo.save(
+                    User.builder()
+                            .userName(userRegisterRequest.getUserName())
+                            .phoneNumber(userRegisterRequest.getPhoneNumber())
+                            .build());
+
+            msg = "님의 회원 등록이 성공적으로 완료되었습니다";
+
+        }
+
+        user = userRepo.findByUserPhoneNumber(user.getPhoneNumber())
+                .orElseThrow(() -> new NotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
+
+        return UserRegisterResponse.builder()
+                .msg(user.getUserName()+msg)
+                .build();
+
+    }
+
+
+    // 회원 전체 조회
+    public List<UserResponse> getAllUser() {
+        List<User> userList = userRepo.findAll();
+
+        return userList.stream()
+                .map(User::toDto).collect(Collectors.toList());
+
     }
 
     // id로 회원 조회

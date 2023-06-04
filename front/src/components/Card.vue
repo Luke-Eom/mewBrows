@@ -5,12 +5,12 @@
    prepend icon 각 prop value 별로 - backend에서 iconUrl넣어주기
 -->
     <v-container>
-      <v-card color="dark" elevation="23">
+      <v-card color="dark" elevation="23" class="card">
         <v-img :src = "item.imgUrl"></v-img>
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-center align-items-center my-4">
 <!--          <v-btn class="btn btn-sm btn-outline-secondary" @click="openDialog">{{ item.menu}}</v-btn>-->
 <!--          추후 예약시 로그인 상태라면 유저정보 넘겨주기 with :selectedItem or selectedUser -> state, prop-->
-          <ScheduleDialog :item="item" @close-dialog="closeScheduleDialog" />
+          <ScheduleDialog :item="item"/>
 
         </div>
       </v-card>
@@ -39,14 +39,24 @@ import ScheduleDialog from './ScheduleDialog.vue';
   }
 </script>
 <style scoped>
-.card .img {
-    display: inline-block;
-    width: 100%;
-    height:250px;
-    background-size: cover;
-    background-position: center;
+.card {
+  width: 80%;
+  height: 60%;
 }
 
+.card .img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 100%;
+    height: 40%;
+  }
+}
 </style>
 
 <!-- pageLink(item.menu)

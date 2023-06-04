@@ -25,6 +25,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleRegisterResponse> createSchedule(@RequestBody @Valid ScheduleRequest scheduleRequest) {
         ScheduleRegisterResponse response = sAdminService.insertSchedule(scheduleRequest);
 
+        // .created() 로
         return ResponseEntity.ok(response);
 
     }
@@ -36,6 +37,7 @@ public class ScheduleController {
         // 전체 조회 (예약 확정 조회)
     @GetMapping("/confirmed-schedules")
     public List<ScheduleResponse> getConfirmedSchedules() {
+
         return sAdminService.selectConfirmedSchedules();
 
     }
@@ -47,6 +49,7 @@ public class ScheduleController {
         // 예약 대기 조회
     @GetMapping("/owait-schedules")
     public List<ScheduleResponse> getConfirmWaitSchedules() {
+
         return sAdminService.selectConfirmWaitSchedules();
 
     }
@@ -54,6 +57,7 @@ public class ScheduleController {
         // 예약 취소 대기 조회
     @GetMapping("/xwait-schedules")
     public List<ScheduleResponse> getCancelWaitSchedules() {
+
         return sAdminService.selectCancelWaitSchedules();
 
     }
@@ -61,6 +65,7 @@ public class ScheduleController {
         // 예약 취소 확정 조회
     @GetMapping("/xconfirmed-schedules")
     public List<ScheduleResponse> getCancelConfirmSchedules() {
+
         return sAdminService.selectCancelConfirmSchedules();
 
     }
@@ -70,6 +75,7 @@ public class ScheduleController {
         // 예약 대기 -> 예약 승인
     @PutMapping("/{scheduleId}/confirm")
     public ResponseEntity<String> confirmSchedule(@PathVariable Long scheduleId) {
+
         try {
             sAdminService.confirmSchedule(scheduleId);
             return ResponseEntity.ok("Schedule confirmed successfully.");
@@ -83,6 +89,7 @@ public class ScheduleController {
         // 예약 취소 대기 -> 취소 확정 (추후 push alarm)
     @PutMapping("/{scheduleId}/cancel")
     public ResponseEntity<String> cancelSchedule(@PathVariable Long scheduleId) {
+
         try {
             sAdminService.cancelSchedule(scheduleId);
             return ResponseEntity.ok("Schedule canceled successfully.");
