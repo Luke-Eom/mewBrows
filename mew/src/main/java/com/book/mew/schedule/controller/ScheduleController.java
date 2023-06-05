@@ -4,7 +4,7 @@ import com.book.mew.schedule.dto.ScheduleRegisterResponse;
 import com.book.mew.schedule.dto.ScheduleRequest;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.service.ScheduleAdminServiceImpl;
-import com.book.mew.user.exceptions.NotFoundException;
+import com.book.mew.user.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,7 +80,7 @@ public class ScheduleController {
             sAdminService.confirmSchedule(scheduleId);
             return ResponseEntity.ok("Schedule confirmed successfully.");
 
-        } catch (NotFoundException e) {
+        } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 
         }
@@ -94,7 +94,7 @@ public class ScheduleController {
             sAdminService.cancelSchedule(scheduleId);
             return ResponseEntity.ok("Schedule canceled successfully.");
 
-        } catch (NotFoundException e) {
+        } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 
         }

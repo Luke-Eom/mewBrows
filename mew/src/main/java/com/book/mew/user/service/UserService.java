@@ -1,16 +1,14 @@
 package com.book.mew.user.service;
 
-import com.book.mew.schedule.entity.Schedule;
 import com.book.mew.user.dto.*;
 import com.book.mew.user.entity.User;
 import com.book.mew.user.enums.LoginType;
-import com.book.mew.user.exceptions.NotFoundException;
+import com.book.mew.user.exceptions.UserNotFoundException;
 import com.book.mew.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +40,7 @@ public class UserService {
         }
 
         User user = userRepo.findByUserId(socialUserResponse.getId())
-                .orElseThrow(() -> new NotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
+                .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
         return LoginResponse.builder()
                 .id(user.getId())
@@ -99,7 +97,7 @@ public class UserService {
         }
 
         user = userRepo.findByUserPhoneNumber(user.getPhoneNumber())
-                .orElseThrow(() -> new NotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
+                .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
         return UserRegisterResponse.builder()
                 .msg(user.getUserName()+msg)
@@ -120,7 +118,7 @@ public class UserService {
     // id로 회원 조회
     public UserResponse getUser(Long id) {
         User user = userRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다."));
 
         return UserResponse.builder()
                 .id(user.getId())

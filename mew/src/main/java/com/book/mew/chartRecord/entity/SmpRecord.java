@@ -7,24 +7,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "surgery_type")
-public class Record {
-
+@Table(name = "SMP")
+@DiscriminatorValue("SMP")
+public class SmpRecord extends Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "chart_id")
-    private Chart chart;
-
-    @Column(name = "imgUrl")
-    private String imgUrl;
 
 }

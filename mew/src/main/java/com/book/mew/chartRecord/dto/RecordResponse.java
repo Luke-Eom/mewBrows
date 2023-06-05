@@ -1,6 +1,5 @@
 package com.book.mew.chartRecord.dto;
 
-import com.book.mew.surgeryType.enums.SurgeryTypes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,11 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class ChartRequest {
+public class RecordResponse {
 
-    private SurgeryTypes surgeryType;
+    private Long id;
 
-    private Long scheduleId;
+    private String code;
 
 }
-

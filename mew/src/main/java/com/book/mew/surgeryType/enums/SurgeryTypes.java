@@ -1,10 +1,9 @@
 package com.book.mew.surgeryType.enums;
 
 public enum SurgeryTypes {
-    SHAPE1,
-    SHAPE2,
-    SHAPE3,
-    RETOUCH
+    EYEBROWS,
+    EYELASH,
+    SMP
 
 }
 

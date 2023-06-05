@@ -8,7 +8,7 @@ import com.book.mew.schedule.enums.Status;
 import com.book.mew.schedule.repository.ScheduleRepository;
 import com.book.mew.user.dto.UserRegisterRequest;
 import com.book.mew.user.entity.User;
-import com.book.mew.user.exceptions.NotFoundException;
+import com.book.mew.user.exceptions.UserNotFoundException;
 import com.book.mew.user.repository.UserRepository;
 import com.book.mew.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -115,7 +114,7 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
         }
 
         User user = userRepo.findByUsernameAndUserPhoneNumber(scheduleRequest.getUsername(), scheduleRequest.getPhoneNumber())
-                .orElseThrow(() -> new NotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
+                .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
             Schedule schedule = scheduleRepo.save(
                     Schedule.builder()
@@ -146,7 +145,7 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
 
             }
         } else {
-            throw new NotFoundException("ERROR404","Schedule not found");
+            throw new UserNotFoundException("ERROR404","Schedule not found");
         }
 
         // 기존 생성 시 ScheduleRegisterResponse 존재 -> not necessary?
@@ -166,7 +165,7 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
 
             }
         } else {
-            throw new NotFoundException("ERROR404","Schedule not found");
+            throw new UserNotFoundException("ERROR404","Schedule not found");
         }
 
     }
