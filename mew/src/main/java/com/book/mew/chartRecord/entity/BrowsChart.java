@@ -12,9 +12,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "SMP")
-@DiscriminatorValue("SMP")
-public class SmpRecord extends Record {
+@Table(name = "EYEBROWS")
+@DiscriminatorValue("EYEBROWS")
+public class BrowsChart extends Chart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

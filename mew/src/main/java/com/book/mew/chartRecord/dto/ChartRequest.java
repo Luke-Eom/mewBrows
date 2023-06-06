@@ -14,7 +14,6 @@ public class ChartRequest {
 
     private SurgeryTypes surgeryType;
 
-    private Long scheduleId;
+    private Long recordId;
 
 }
-

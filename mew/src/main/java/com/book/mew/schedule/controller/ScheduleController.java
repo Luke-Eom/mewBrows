@@ -35,6 +35,7 @@ public class ScheduleController {
     // 예약 조회
 
         // 전체 조회 (예약 확정 조회)
+
     @GetMapping("/confirmed-schedules")
     public List<ScheduleResponse> getConfirmedSchedules() {
 

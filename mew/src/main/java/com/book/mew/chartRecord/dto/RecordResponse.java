@@ -11,8 +11,13 @@ import lombok.NoArgsConstructor;
 @Getter
 public class RecordResponse {
 
-    private Long id;
+    private Long recordId;
 
-    private String code;
+    private String baImgUrl;
+
+    private String captureImgUrl;
+
+    private String msg;
+
 
 }

@@ -35,6 +35,9 @@ public class User extends CommonEntity {
     @Column(length = 50)
     private String userEmail;
 
+    @Column(length = 8)
+    private Integer birthDate;
+
     @Column(columnDefinition = "ENUM('GUEST', 'MEMBER', 'ADMIN') DEFAULT 'GUEST'")
     @Enumerated(EnumType.STRING)
     private Role role;

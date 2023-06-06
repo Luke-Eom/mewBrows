@@ -1,6 +1,6 @@
 package com.book.mew.schedule.entity;
 
-import com.book.mew.chartRecord.entity.Chart;
+import com.book.mew.chartRecord.entity.Record;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.surgeryType.entity.SurgeryType;
@@ -41,8 +41,9 @@ public class Schedule {
     @Builder.Default
     private Status status = Status.CONFIRM_WAIT;
 
-    @OneToOne(mappedBy = "schedule")
-    private Chart chart;
+    // !!예약 삭제 시 기록은 남기도록 수정할것
+    @OneToOne(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Record record;
 
     public ScheduleResponse toDto() {
         return ScheduleResponse.builder()

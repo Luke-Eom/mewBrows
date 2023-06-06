@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class RecordRequest {
+public class RecordInsertRequest {
+
+    private Long scheduleId;
 
     private SurgeryTypes surgeryType;
 
-    private Long chartId;
-
 }
+

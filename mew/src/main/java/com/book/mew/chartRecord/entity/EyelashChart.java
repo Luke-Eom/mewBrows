@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Table(name = "EYELASH")
 @DiscriminatorValue("EYELASH")
-public class EyelashRecord extends Record {
+public class EyelashChart extends Chart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

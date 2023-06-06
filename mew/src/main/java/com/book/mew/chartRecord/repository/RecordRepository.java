@@ -1,5 +1,8 @@
 package com.book.mew.chartRecord.repository;
 
-public interface RecordRepository {
+import com.book.mew.chartRecord.entity.Record;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RecordRepository extends JpaRepository<Record, Long> {
 
 }

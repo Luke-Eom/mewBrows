@@ -1,7 +1,9 @@
 package com.book.mew.chartRecord.entity;
 
-import com.book.mew.schedule.entity.Schedule;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,23 +12,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "surgery_type")
 public class Chart {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "chart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "record_id")
     private Record record;
 
-    @OneToOne
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
+    @Column(name = "imgUrl")
+    private String captureImgUrl;
 
-    @Setter
-    @Column(name = "ba_img_url")
-    private String baImgUrl;     // b4&after
-
-    // schedule과 join?, createTime, updateTime -> Common
 }

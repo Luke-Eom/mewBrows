@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ChartResponse {
 
-    private Long id;
-
-    private String baImgUrl;
+    private Long chartId;
 
     private String msg;
+
+    private String captureUrl;
 
 }
