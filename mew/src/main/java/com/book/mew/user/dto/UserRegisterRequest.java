@@ -13,8 +13,9 @@ public class UserRegisterRequest {
 
     private String userName;
 
+    private Integer birthDate;
+
     private Integer phoneNumber;
 
-    // userAge? +@
 
 }

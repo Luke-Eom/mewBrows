@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class ScheduleRegisterResponse {
     private Long id;
 
+    private String userName;
+
 }

@@ -6,16 +6,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ScheduleResponse {
     // 예약 회원 이름, 시술 타입, 시간
-    private String id; // for Json 형식
+    private Long id; // for Json 형식
     private String userName;
+    private Integer userPhoneNumber;
+    private Integer userBirthDate;
     private String surgeryType;
-    private String scheduleTime;
+    private LocalDateTime scheduleTime;
+    private Long recordId;
     private String status;
 
     //
