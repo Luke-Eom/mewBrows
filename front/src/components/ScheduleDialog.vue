@@ -1,18 +1,36 @@
 <template>
   <v-dialog v-model="ScheduleDialogVisible" max-width="500" persistent>
     <template v-slot:activator>
-      <v-btn class="btn btn-sm btn-outline-secondary" @click="openDialog">{{ item.menu}}</v-btn>
+      <v-btn class="btn btn-sm btn-outline-secondary" @click="openDialog">예약 신청</v-btn>
     </template>
     <v-card>
       <v-card-title>
         <span class="headline">예약 신청</span>
       </v-card-title>
       <v-card-text>
-        <v-text-field v-model="name" label="Name"></v-text-field>
-        <v-text-field v-model="email" label="Email"></v-text-field>
-        <v-text-field v-model="phoneNumber" label="Phone Number"></v-text-field>
-        <v-text-field v-model="surgeryType" label="Surgery Type"></v-text-field>
-        <v-text-field v-model="scheduleTime" label="Time"></v-text-field>
+        <v-text-field v-model="name" label="이름"></v-text-field>
+        <v-text-field v-model="birthDate" label="생년월일"></v-text-field>
+        <v-text-field v-model="phoneNumber" label="연락처 (핸드폰)"></v-text-field>
+        <v-select
+            v-model="selectedSurgeryType"
+            :items="surgeryTypes"
+            label="시술 타입"
+        ></v-select>
+        <v-dialog v-model="scheduleTimeDialog" max-width="300">
+          <template v-slot:activator="{ on }">
+            <v-text-field
+                v-model="scheduleTime"
+                label="예약 시간"
+                readonly
+                v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="selectedDate"></v-date-picker>
+          <v-time-picker v-model="selectedTime" format="24hr"></v-time-picker>
+          <v-card-actions>
+            <v-btn color="primary" @click="saveScheduleTime">확인</v-btn>
+          </v-card-actions>
+        </v-dialog>
       </v-card-text>
       <v-card-actions class="d-flex justify-content-center">
         <v-btn color="primary" text @click="closeScheduleDialog">Cancel</v-btn>
@@ -45,45 +63,61 @@
 <script>
 import ScheduleDialog from "./ScheduleDialog.vue";
 import axios from "axios";
+import { VDatePicker } from "vuetify";
 
 export default {
+  components:{VDatePicker},
   computed: {
     ScheduleDialog() {
       return ScheduleDialog
     }
   },
-  props: ['item'],
+
   data() {
     return {
       ScheduleDialogVisible: false,
       requestSent: false,
       name: '',
-      email: '',
+      birthDate: '',
       phoneNumber: '',
-      surgeryType: '',
-      scheduleTime: ''
+      surgeryTypes: ["EYEBROWS", "EYELASH", "SMP"],
+      selectedSurgeryType: "",
+      scheduleTime: "",
+      scheduleTimeDialog: false,
+      selectedDate: new Date().toISOString().substr(0, 10),
+      selectedTime: null,
     };
+
   },
   methods: {
     openDialog() {
-      if (this.item.menu === "예약") {
-        this.ScheduleDialogVisible = true;
-      }
+      this.ScheduleDialogVisible = true;
     },
+
     closeScheduleDialog() {
       this.ScheduleDialogVisible = false;
     },
+
+    saveScheduleTime() {
+      const selectedDateTime = new Date(
+          `${this.selectedDate}T${this.selectedTime}`
+      );
+      this.scheduleTime = selectedDateTime.toLocaleString();
+
+      this.scheduleTimeDialog = false;
+    },
+
     submitForm() {
 
       const formData = {
         name: this.name,
-        email: this.email,
+        birthDate: this.birthDate,
         phoneNumber: this.phoneNumber,
-        surgeryType: this.surgeryType, // 선택 탭 만들고 해당 시술 타입 마다 enum에 맞는 인데스값
-        time: this.time
+        surgeryType: this.selectedSurgeryType,
+        scheduleTime: this.scheduleTime
       }
 
-      //추 후 관리자 생성 요청 | 유저 요청으로 나누기 (이부분은 유저 요청에 해당 그러므로 user요청 url로 바꾸자)
+      //추 후 관리자 생성 요청 | 유저 요청으로 나누기 switch 사용 현재 사용자가 admin|member
       axios.post("http://localhost:8080/api/schedule/create-schedule-by-admin", formData)
           .then(response => {
             console.log(response.data);

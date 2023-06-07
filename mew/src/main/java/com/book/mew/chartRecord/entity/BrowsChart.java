@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Builder
 @Entity
@@ -19,5 +20,7 @@ public class BrowsChart extends Chart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private Map<String, Object> browsData;
 
 }

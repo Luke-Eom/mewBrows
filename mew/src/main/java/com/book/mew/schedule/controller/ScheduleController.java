@@ -1,5 +1,6 @@
 package com.book.mew.schedule.controller;
 
+import com.book.mew.schedule.dto.ScheduleRegisterRequest;
 import com.book.mew.schedule.dto.ScheduleRegisterResponse;
 import com.book.mew.schedule.dto.ScheduleRequest;
 import com.book.mew.schedule.dto.ScheduleResponse;
@@ -22,8 +23,8 @@ public class ScheduleController {
     // 예약 생성
         // (고객 문의 및 대면 신청으로 관리자가 바로 등록할 경우)
     @PostMapping("/create-schedule-by-admin")
-    public ResponseEntity<ScheduleRegisterResponse> createSchedule(@RequestBody @Valid ScheduleRequest scheduleRequest) {
-        ScheduleRegisterResponse response = sAdminService.insertSchedule(scheduleRequest);
+    public ResponseEntity<ScheduleRegisterResponse> createSchedule(@RequestBody ScheduleRegisterRequest registerRequest) {
+        ScheduleRegisterResponse response = sAdminService.insertSchedule(registerRequest);
 
         // .created() 로
         return ResponseEntity.ok(response);

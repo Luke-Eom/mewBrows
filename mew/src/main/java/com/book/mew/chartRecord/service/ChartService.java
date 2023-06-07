@@ -2,14 +2,17 @@ package com.book.mew.chartRecord.service;
 
 import com.book.mew.chartRecord.dto.ChartFormatResponse;
 import com.book.mew.chartRecord.dto.ChartResponse;
-import com.book.mew.chartRecord.entity.Record;
-import com.book.mew.chartRecord.entity.Chart;
+import com.book.mew.chartRecord.entity.*;
 import com.book.mew.chartRecord.exceptions.ChartRecordNotFoundException;
 import com.book.mew.chartRecord.repository.*;
 import com.book.mew.surgeryType.enums.SurgeryTypes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.NotFound;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -31,38 +34,53 @@ public class ChartService {
         Record record = recordRepo.findById(recordId)
                 .orElseThrow(() -> new ChartRecordNotFoundException("",""));
 
-        Chart chart = new Chart();
+        Chart chart;
+
+        String formatType;
 
         SurgeryTypes surgeryType = record.getSchedule().getSurgeryType().getSurgeryType();
 
         if(surgeryType == surgeryType.EYEBROWS) {
 
+            chart = BrowsChart.builder()
+                    .build();
+
+            formatType = "eyebrows";
 
         } else if (surgeryType == surgeryType.EYELASH) {
 
+            chart = EyelashChart.builder().build();
 
+            formatType = "eyelash";
 
         } else if (surgeryType == surgeryType.SMP) {
 
+            chart = SmpChart.builder().build();
 
+            formatType = "smp";
 
+        } else {
+            throw new ChartRecordNotFoundException("","");
         }
+
+        chartRepo.save(chart);
 
 
         return ChartFormatResponse.builder()
                 .chartId(chart.getId())
-
+                .surgeryType(formatType)
                 .build();
 
     }
 
-    public ChartResponse getRecord(Long recordId) {
+    public ChartResponse getChartImg(Long recordId) {
 
         Chart chart = chartRepo.findById(recordId)
                 .orElse(null);
 
-        if(chart == null) {
-            String msg = "기록이 없습니다. 기록 생성 버튼을 눌러주세요.";
+        if(chart.getCaptureImgUrl() == null) {
+
+            String msg = "저장된 차트가 없습니다. 차트를 생성하고 저장해주세요.";
 
             return ChartResponse.builder()
                     .msg(msg)
@@ -71,20 +89,66 @@ public class ChartService {
         }
 
         return ChartResponse.builder()
+                .msg("저장된 차트 이미지 보기")
                 .captureUrl(chart.getCaptureImgUrl())
                 .build();
 
     }
 
-    public ChartResponse saveRecord() {
+    public ChartResponse saveChart(Long recordId) {
 
+        Record record = recordRepo.findById(recordId)
+                .orElseThrow(() -> new ChartRecordNotFoundException("",""));
+
+        Chart chart;
+        Map<String, Object> format;
+
+        SurgeryTypes surgeryType = record.getSchedule().getSurgeryType().getSurgeryType();
+
+        if(surgeryType == surgeryType.EYEBROWS) {
+            Map<String, Object> browsData = new HashMap<>();
+
+            //populate browsData
+            browsData.put("key1", "value1");
+            browsData.put("key2", "value2");
+
+            format = browsData;
+
+            chart = BrowsChart.builder()
+                    .browsData(browsData)
+                    .build();
+
+
+        } else if (surgeryType == surgeryType.EYELASH) {
+            Map<String, Object> eyelashData = new HashMap<>();
+
+            //populate eyelashData
+
+            format = eyelashData;
+
+            chart = EyelashChart.builder().build();
+
+        } else if (surgeryType == surgeryType.SMP) {
+            Map<String, Object> smpData = new HashMap<>();
+
+            //populate smpData
+
+            format = smpData;
+
+            chart = SmpChart.builder().build();
+
+        } else {
+            throw new ChartRecordNotFoundException("","");
+        }
+
+        chartRepo.save(chart);
 
 
         return ChartResponse.builder().build();
 
     }
 
-    public ChartResponse deleteRecord(Long recordId) {
+    public ChartResponse deleteChart(Long recordId) {
 
         return ChartResponse.builder().build();
 

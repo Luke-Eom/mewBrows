@@ -1,5 +1,6 @@
 package com.book.mew.schedule.service;
 
+import com.book.mew.schedule.dto.ScheduleRegisterRequest;
 import com.book.mew.schedule.dto.ScheduleRegisterResponse;
 import com.book.mew.schedule.dto.ScheduleRequest;
 import com.book.mew.schedule.dto.ScheduleResponse;
@@ -103,29 +104,31 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
     // user가 등록되어있지 않다면 user 등록후 예약생성
     // param (default status = CONFIRM_WAIT)
     @Transactional
-    public ScheduleRegisterResponse insertSchedule(ScheduleRequest scheduleRequest) {
+    public ScheduleRegisterResponse insertSchedule(ScheduleRegisterRequest request) {
 
-        if(userRepo.findByUsernameAndUserPhoneNumber(scheduleRequest.getUsername(), scheduleRequest.getPhoneNumber()).isEmpty()){
+        if(userRepo.findByUsernameAndUserPhoneNumber(request.getUsername(), request.getPhoneNumber()).isEmpty()){
             userService.registerUser(UserRegisterRequest.builder()
-                            .userName(scheduleRequest.getUsername())
-                            .phoneNumber(scheduleRequest.getPhoneNumber())
+                            .userName(request.getUsername())
+                            .birthDate(request.getBirthDate())
+                            .phoneNumber(request.getPhoneNumber())
                             .build());
 
         }
 
-        User user = userRepo.findByUsernameAndUserPhoneNumber(scheduleRequest.getUsername(), scheduleRequest.getPhoneNumber())
+        User user = userRepo.findByUsernameAndUserPhoneNumber(request.getUsername(), request.getPhoneNumber())
                 .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
             Schedule schedule = scheduleRepo.save(
                     Schedule.builder()
-                            .user(user) // String code 에서 user 정보 받아오기?
-                            .surgeryType(scheduleRequest.getSurgeryType())
-                            .scheduleTime(scheduleRequest.getScheduleTime())
+                            .user(user)
+                            .surgeryType(request.getSurgeryType())
+                            .scheduleTime(request.getScheduleTime())
                             .status(Status.CONFIRM)
                             .build());
 
         return ScheduleRegisterResponse.builder()
                 .id(schedule.getId())
+                .userName(user.getUserName())
                 .build();
     }
 

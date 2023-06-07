@@ -16,13 +16,9 @@ import java.time.LocalDateTime;
 public class ScheduleRequest {
 
     private String username;
-
-    private Integer PhoneNumber;
-
+    private Integer birthDate;
+    private Integer phoneNumber;
     private SurgeryType surgeryType;
-
     private LocalDateTime scheduleTime;
-
-    private String status;
 
 }

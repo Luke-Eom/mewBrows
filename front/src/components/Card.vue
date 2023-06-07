@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-center align-items-center my-4">
 <!--          <v-btn class="btn btn-sm btn-outline-secondary" @click="openDialog">{{ item.menu}}</v-btn>-->
 <!--          추후 예약시 로그인 상태라면 유저정보 넘겨주기 with :selectedItem or selectedUser -> state, prop-->
-          <ScheduleDialog :item="item"/>
+          <ScheduleDialog v-if="item.menu === '예약'"/>
 
         </div>
       </v-card>

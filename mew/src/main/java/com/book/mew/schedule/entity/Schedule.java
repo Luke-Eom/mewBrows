@@ -46,13 +46,23 @@ public class Schedule {
     private Record record;
 
     public ScheduleResponse toDto() {
-        return ScheduleResponse.builder()
-                .id(this.id.toString())
+        ScheduleResponse.ScheduleResponseBuilder builder = ScheduleResponse.builder()
+                .id(this.id)
                 .userName(this.user.getUserName())
-                .scheduleTime(this.scheduleTime.toString())
+                .userBirthDate(this.user.getBirthDate())
+                .userPhoneNumber(this.user.getPhoneNumber())
+                .scheduleTime(this.scheduleTime)
                 .surgeryType(this.surgeryType.toString())
-                .status(this.status.toString())
-                .build();
+                .status(this.status.toString());
+
+        if (this.record != null) {
+            builder.recordId(this.record.getId());
+        } else {
+            builder.recordId(null);
+        }
+
+        return builder.build();
+
     }
 
     public void updateStatus(Status status) {

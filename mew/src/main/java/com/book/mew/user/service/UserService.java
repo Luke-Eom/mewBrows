@@ -82,13 +82,13 @@ public class UserService {
     // 로그인 타입이 default이면 로그인 타입을 바꿔주고 추가 데이터 업데이트) - code update req
     public UserRegisterResponse registerUser(UserRegisterRequest userRegisterRequest) {
         // 회원 중복 체크 로직 추후 추가 - UserResponse msg set
-        String msg = null;
-        User user = new User();
+        String msg = "이미 등록된 회원입니다";
 
         if(userRepo.findByUserPhoneNumber(userRegisterRequest.getPhoneNumber()).isEmpty()) {
             userRepo.save(
                     User.builder()
                             .userName(userRegisterRequest.getUserName())
+                            .birthDate(userRegisterRequest.getBirthDate())
                             .phoneNumber(userRegisterRequest.getPhoneNumber())
                             .build());
 
@@ -96,7 +96,7 @@ public class UserService {
 
         }
 
-        user = userRepo.findByUserPhoneNumber(user.getPhoneNumber())
+        User user = userRepo.findByUserPhoneNumber(userRegisterRequest.getPhoneNumber())
                 .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
         return UserRegisterResponse.builder()
