@@ -2,8 +2,6 @@
  <div class="Home">
 
       <section class="py-1 text-center container" >
-        <Carousel/>
-
 
         <div class="row py-lg-3">
           <div class="col-lg-6 col-md-8 mx-auto">
@@ -30,7 +28,6 @@
 
 <script>
 import Card from "@/components/Card";
-import Carousel from "@/components/Carousel";
 import axios from "axios";
 import { reactive, onMounted } from "vue";
 
@@ -39,7 +36,6 @@ export default {
   name: 'Home',
   components: {
     Card,
-    Carousel
   },
   setup() {
       const state = reactive({

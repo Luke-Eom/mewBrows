@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="ScheduleDialogVisible" max-width="500" persistent>
+  <v-dialog v-model="scheduleDialogVisible" :max-width="500" persistent>
     <template v-slot:activator>
       <v-btn class="btn btn-sm btn-outline-secondary" @click="openDialog">예약 신청</v-btn>
     </template>
@@ -16,21 +16,9 @@
             :items="surgeryTypes"
             label="시술 타입"
         ></v-select>
-        <v-dialog v-model="scheduleTimeDialog" max-width="300">
-          <template v-slot:activator="{ on }">
-            <v-text-field
-                v-model="scheduleTime"
-                label="예약 시간"
-                readonly
-                v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="selectedDate"></v-date-picker>
-          <v-time-picker v-model="selectedTime" format="24hr"></v-time-picker>
-          <v-card-actions>
-            <v-btn color="primary" @click="saveScheduleTime">확인</v-btn>
-          </v-card-actions>
-        </v-dialog>
+        <v-text-field type="date" label="예약 날짜"  min="minDate" max="maxDate"></v-text-field>
+
+
       </v-card-text>
       <v-card-actions class="d-flex justify-content-center">
         <v-btn color="primary" text @click="closeScheduleDialog">Cancel</v-btn>
@@ -63,10 +51,9 @@
 <script>
 import ScheduleDialog from "./ScheduleDialog.vue";
 import axios from "axios";
-import { VDatePicker } from "vuetify";
 
 export default {
-  components:{VDatePicker},
+  components:{  },
   computed: {
     ScheduleDialog() {
       return ScheduleDialog
@@ -75,7 +62,8 @@ export default {
 
   data() {
     return {
-      ScheduleDialogVisible: false,
+      scheduleDialogVisible: false,
+      datePick: false,
       requestSent: false,
       name: '',
       birthDate: '',
@@ -83,28 +71,29 @@ export default {
       surgeryTypes: ["EYEBROWS", "EYELASH", "SMP"],
       selectedSurgeryType: "",
       scheduleTime: "",
-      scheduleTimeDialog: false,
       selectedDate: new Date().toISOString().substr(0, 10),
-      selectedTime: null,
     };
 
   },
+
+  mounted() {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() + 1);
+    this.minDate = startDate.toISOString().substr(0, 10);
+
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 29);
+    this.maxDate = endDate.toISOString().substr(0, 10);
+
+  },
+
   methods: {
     openDialog() {
-      this.ScheduleDialogVisible = true;
+      this.scheduleDialogVisible = true;
     },
 
     closeScheduleDialog() {
-      this.ScheduleDialogVisible = false;
-    },
-
-    saveScheduleTime() {
-      const selectedDateTime = new Date(
-          `${this.selectedDate}T${this.selectedTime}`
-      );
-      this.scheduleTime = selectedDateTime.toLocaleString();
-
-      this.scheduleTimeDialog = false;
+      this.scheduleDialogVisible = false;
     },
 
     submitForm() {
@@ -141,5 +130,11 @@ export default {
 <style scoped>
 .headline {
   font-size: 24px;
+}
+div {
+  text-align: center;
+}
+div.date {
+  display: inline-flex;
 }
 </style>
