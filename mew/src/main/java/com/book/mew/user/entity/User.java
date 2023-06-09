@@ -28,7 +28,6 @@ public class User extends CommonEntity {
     @Column(length = 11)
     private Integer phoneNumber;
 
-    @NonNull
     @Column(length = 50)
     private String userName;
 

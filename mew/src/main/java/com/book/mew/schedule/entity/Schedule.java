@@ -3,7 +3,7 @@ package com.book.mew.schedule.entity;
 import com.book.mew.chartRecord.entity.Record;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.enums.Status;
-import com.book.mew.surgeryType.entity.SurgeryType;
+import com.book.mew.surgeryType.enums.SurgeryTypes;
 import com.book.mew.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +28,8 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    // enum으로 change?
-    @ManyToOne
-    @JoinColumn(name = "surgery_type_id")
-    private SurgeryType surgeryType;
+
+    private SurgeryTypes surgeryType;
 
     @Column(name = "schedule_time")
     private LocalDateTime scheduleTime;

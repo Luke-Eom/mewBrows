@@ -12,9 +12,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUserEmail(String userEmail);
 
-    Optional<User> findByUserPhoneNumber(Integer phoneNumber);
+    Optional<User> findByPhoneNumber(Integer phoneNumber);
 
     // error가 있거나 결과값이 안맞으면 @Query 사용
-    Optional<User> findByUsernameAndUserPhoneNumber(String username, Integer phoneNumber);
+    Optional<User> findByUserNameAndPhoneNumber(String username, Integer phoneNumber);
 
 }

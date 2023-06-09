@@ -17,6 +17,6 @@ import javax.persistence.*;
 public class SmpChart extends Chart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
 }

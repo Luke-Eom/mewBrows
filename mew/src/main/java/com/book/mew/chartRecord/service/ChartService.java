@@ -38,7 +38,7 @@ public class ChartService {
 
         String formatType;
 
-        SurgeryTypes surgeryType = record.getSchedule().getSurgeryType().getSurgeryType();
+        SurgeryTypes surgeryType = record.getSchedule().getSurgeryType();
 
         if(surgeryType == surgeryType.EYEBROWS) {
 
@@ -103,7 +103,7 @@ public class ChartService {
         Chart chart;
         Map<String, Object> format;
 
-        SurgeryTypes surgeryType = record.getSchedule().getSurgeryType().getSurgeryType();
+        SurgeryTypes surgeryType = record.getSchedule().getSurgeryType();
 
         if(surgeryType == surgeryType.EYEBROWS) {
             Map<String, Object> browsData = new HashMap<>();

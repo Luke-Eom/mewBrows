@@ -7,6 +7,7 @@ import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.entity.Schedule;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.schedule.repository.ScheduleRepository;
+import com.book.mew.surgeryType.enums.SurgeryTypes;
 import com.book.mew.user.dto.UserRegisterRequest;
 import com.book.mew.user.entity.User;
 import com.book.mew.user.exceptions.UserNotFoundException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -106,25 +108,29 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
     @Transactional
     public ScheduleRegisterResponse insertSchedule(ScheduleRegisterRequest request) {
 
-        if(userRepo.findByUsernameAndUserPhoneNumber(request.getUsername(), request.getPhoneNumber()).isEmpty()){
+        if(userRepo.findByUserNameAndPhoneNumber(request.getUsername(), request.getPhoneNumber()).isEmpty()){
             userService.registerUser(UserRegisterRequest.builder()
                             .userName(request.getUsername())
                             .birthDate(request.getBirthDate())
                             .phoneNumber(request.getPhoneNumber())
                             .build());
-
+            System.out.println("회원 등록");
         }
 
-        User user = userRepo.findByUsernameAndUserPhoneNumber(request.getUsername(), request.getPhoneNumber())
+        User user = userRepo.findByUserNameAndPhoneNumber(request.getUsername(), request.getPhoneNumber())
                 .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
-            Schedule schedule = scheduleRepo.save(
-                    Schedule.builder()
-                            .user(user)
-                            .surgeryType(request.getSurgeryType())
-                            .scheduleTime(request.getScheduleTime())
-                            .status(Status.CONFIRM)
-                            .build());
+        LocalDateTime scheduleTime = LocalDateTime.parse(request.getScheduleTime(), DateTimeFormatter.ISO_DATE_TIME);
+
+        Schedule schedule = scheduleRepo.save(
+                Schedule.builder()
+                        .user(user)
+                        .surgeryType(convertStringToSurgeryType(request.getSurgeryType()))
+                        .scheduleTime(scheduleTime)
+                        .status(Status.CONFIRM)
+                        .build());
+
+        System.out.println("예약 저장");
 
         return ScheduleRegisterResponse.builder()
                 .id(schedule.getId())
@@ -177,6 +183,23 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
     // 예약 삭제
     // (관리자 - 승인 status(CANCEL_WAIT-> delete schedule()))
     // if (getStatus == Status.CANCEL_WAIT)
+
+    // enum type convert method
+    private SurgeryTypes convertStringToSurgeryType(String surgeryTypeStr) {
+
+        switch (surgeryTypeStr) {
+            case "반영구 눈썹":
+                return SurgeryTypes.EYEBROWS;
+            case "속눈썹":
+                return SurgeryTypes.EYELASH;
+            case "SMP 두피":
+                return SurgeryTypes.SMP;
+            default:
+                throw new IllegalArgumentException("Invalid surgery type: " + surgeryTypeStr);
+
+        }
+    }
+
 
 
 }

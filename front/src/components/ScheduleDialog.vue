@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="scheduleDialogVisible" :max-width="500" persistent>
     <template v-slot:activator>
-      <v-btn class="btn btn-sm btn-outline-secondary" @click="openDialog">예약 신청</v-btn>
+      <v-btn class="btn btn-sm btn-outline-secondary" @click="openScheduleDialog">예약 신청</v-btn>
     </template>
     <v-card>
       <v-card-title>
@@ -16,13 +16,15 @@
             :items="surgeryTypes"
             label="시술 타입"
         ></v-select>
-        <v-text-field type="date" label="예약 날짜"  min="minDate" max="maxDate"></v-text-field>
+
+          <VueDatePicker v-model="scheduleTime" placeholder="예약날짜를 입력해주세요" text-input :text-input-options="textInputOptions" />
+
 
 
       </v-card-text>
       <v-card-actions class="d-flex justify-content-center">
-        <v-btn color="primary" text @click="closeScheduleDialog">Cancel</v-btn>
-        <v-btn color="primary" @click="submitForm">Submit</v-btn>
+        <v-btn color="primary" text @click="closeScheduleDialog">취소</v-btn>
+        <v-btn color="primary" @click="submitForm">예약 요청</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -51,27 +53,36 @@
 <script>
 import ScheduleDialog from "./ScheduleDialog.vue";
 import axios from "axios";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import { parseISO, format } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 
 export default {
-  components:{  },
+  components:{ VueDatePicker },
   computed: {
     ScheduleDialog() {
       return ScheduleDialog
-    }
+    },
+
+  },
+
+  setup(){
+
+
+
   },
 
   data() {
     return {
       scheduleDialogVisible: false,
-      datePick: false,
       requestSent: false,
       name: '',
-      birthDate: '',
-      phoneNumber: '',
-      surgeryTypes: ["EYEBROWS", "EYELASH", "SMP"],
+      birthDate: 0,
+      phoneNumber: 0,
+      surgeryTypes: ["반영구 눈썹", "속눈썹", "SMP 두피"],
       selectedSurgeryType: "",
-      scheduleTime: "",
-      selectedDate: new Date().toISOString().substr(0, 10),
+      scheduleTime: new Date().toISOString().substr(0, 10),
+
     };
 
   },
@@ -88,7 +99,7 @@ export default {
   },
 
   methods: {
-    openDialog() {
+    openScheduleDialog() {
       this.scheduleDialogVisible = true;
     },
 
@@ -98,12 +109,19 @@ export default {
 
     submitForm() {
 
+      this.requestSent =true;
+
       const formData = {
         name: this.name,
-        birthDate: this.birthDate,
-        phoneNumber: this.phoneNumber,
+        birthDate: parseInt(this.birthDate),
+        phoneNumber: parseInt(this.phoneNumber),
         surgeryType: this.selectedSurgeryType,
-        scheduleTime: this.scheduleTime
+        scheduleTime: new Date(this.scheduleTime)
+      };
+      if (this.scheduleTime) {
+        const selectedDateTime = parseISO(this.scheduleTime);
+        const kstDateTime = utcToZonedTime(selectedDateTime, 'Asia/Seoul');
+        formData.scheduleTime = format(kstDateTime, "yyyy-MM-dd'T'HH:mm:ss");
       }
 
       //추 후 관리자 생성 요청 | 유저 요청으로 나누기 switch 사용 현재 사용자가 admin|member
@@ -111,11 +129,11 @@ export default {
           .then(response => {
             console.log(response.data);
             //요청 완료 후 추가 action
-            this.ScheduleDialogVisible = false;
+            this.scheduleDialogVisible = false;
             this.requestSent = true;
           })
           .catch(error => {
-            console.error(error);
+            console.error(error.response);
             // 조건 내 동일인 중복 요청시 ? db 메모리
             // 중복 요청이 있습니다 다시 확인해주세요 etc.
           });
@@ -125,6 +143,16 @@ export default {
   }
 
 };
+</script>
+
+<script setup>
+import { ref } from 'vue';
+
+const scheduleTime = ref();
+const textInputOptions = ref({
+  format: 'MM.dd.yyyy HH:mm',
+  timezone: 'Asia/Seoul'
+})
 </script>
 
 <style scoped>

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Builder
+@Builder(builderMethodName = "chartBuilder")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

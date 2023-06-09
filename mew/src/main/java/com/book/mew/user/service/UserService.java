@@ -84,7 +84,7 @@ public class UserService {
         // 회원 중복 체크 로직 추후 추가 - UserResponse msg set
         String msg = "이미 등록된 회원입니다";
 
-        if(userRepo.findByUserPhoneNumber(userRegisterRequest.getPhoneNumber()).isEmpty()) {
+        if(userRepo.findByPhoneNumber(userRegisterRequest.getPhoneNumber()).isEmpty()) {
             userRepo.save(
                     User.builder()
                             .userName(userRegisterRequest.getUserName())
@@ -96,7 +96,7 @@ public class UserService {
 
         }
 
-        User user = userRepo.findByUserPhoneNumber(userRegisterRequest.getPhoneNumber())
+        User user = userRepo.findByPhoneNumber(userRegisterRequest.getPhoneNumber())
                 .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
         return UserRegisterResponse.builder()

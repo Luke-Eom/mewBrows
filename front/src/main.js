@@ -13,6 +13,9 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
+import Vue3DatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 // add icons to the library
 library.add(fas, far, fab);
 
@@ -20,4 +23,7 @@ library.add(fas, far, fab);
 loadFonts()
 
 createApp(App)
-  .use(vuetify).use(store).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
+  .use(vuetify).use(store).use(router)
+    .component('font-awesome-icon', FontAwesomeIcon)
+    .component('VueDatePicker', Vue3DatePicker)
+    .mount('#app')

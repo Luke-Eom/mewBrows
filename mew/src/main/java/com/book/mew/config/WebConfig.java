@@ -1,4 +1,4 @@
-package com.book.mew.user.config;
+package com.book.mew.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

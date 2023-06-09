@@ -19,8 +19,13 @@ public class BrowsChart extends Chart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
+//    @ElementCollection
+//    @CollectionTable(name = "brows_data", joinColumns = @JoinColumn(name = "chart_id"))
+//    @MapKeyColumn(name = "key")
+//    @Column(name = "value")
+    @Transient
     private Map<String, Object> browsData;
 
 }
