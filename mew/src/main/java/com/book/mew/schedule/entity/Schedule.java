@@ -4,7 +4,7 @@ import com.book.mew.chartRecord.entity.Record;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.surgeryType.enums.SurgeryTypes;
-import com.book.mew.user.entity.User;
+import com.book.mew.userFeign.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -2,16 +2,14 @@ package com.book.mew.schedule.controller;
 
 import com.book.mew.schedule.dto.ScheduleRegisterRequest;
 import com.book.mew.schedule.dto.ScheduleRegisterResponse;
-import com.book.mew.schedule.dto.ScheduleRequest;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.service.ScheduleAdminServiceImpl;
-import com.book.mew.user.exceptions.UserNotFoundException;
+import com.book.mew.userFeign.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

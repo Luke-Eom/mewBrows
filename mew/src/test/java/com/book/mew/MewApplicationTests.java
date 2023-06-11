@@ -1,12 +1,7 @@
 package com.book.mew;
 
-import com.book.mew.schedule.dto.ScheduleRequest;
-import com.book.mew.schedule.enums.Status;
 import com.book.mew.schedule.repository.ScheduleRepository;
-import com.book.mew.surgeryType.enums.SurgeryTypes;
-import com.book.mew.user.entity.User;
-import com.book.mew.user.enums.LoginType;
-import com.book.mew.user.repository.UserRepository;
+import com.book.mew.userFeign.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +9,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Transactional
 @Rollback
