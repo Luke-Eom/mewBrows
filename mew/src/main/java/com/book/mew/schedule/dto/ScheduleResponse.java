@@ -16,8 +16,8 @@ public class ScheduleResponse {
     // 예약 회원 이름, 시술 타입, 시간
     private Long id; // for Json 형식
     private String userName;
-    private Integer userPhoneNumber;
-    private Integer userBirthDate;
+    private String userPhoneNumber;
+    private String userBirthDay;
     private String surgeryType;
     private LocalDateTime scheduleTime;
     private Long recordId;

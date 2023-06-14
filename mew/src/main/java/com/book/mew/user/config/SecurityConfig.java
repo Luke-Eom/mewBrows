@@ -2,7 +2,7 @@ package com.book.mew.user.config;
 
 import com.book.mew.user.security.JwtAccessDeniedHandler;
 import com.book.mew.user.security.JwtAuthenticationEntryPoint;
-import com.book.mew.user.security.TokenProvider;
+import com.book.mew.user.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 

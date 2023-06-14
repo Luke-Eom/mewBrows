@@ -4,7 +4,7 @@ import com.book.mew.chartRecord.entity.Record;
 import com.book.mew.schedule.dto.ScheduleResponse;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.surgeryType.enums.SurgeryTypes;
-import com.book.mew.userFeign.entity.User;
+import com.book.mew.user.enity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,8 +46,8 @@ public class Schedule {
     public ScheduleResponse toDto() {
         ScheduleResponse.ScheduleResponseBuilder builder = ScheduleResponse.builder()
                 .id(this.id)
-                .userName(this.user.getUserName())
-                .userBirthDate(this.user.getBirthDate())
+                .userName(this.user.getRealName())
+                .userBirthDay(this.user.getKakaoProfile().getBirthDay())
                 .userPhoneNumber(this.user.getPhoneNumber())
                 .scheduleTime(this.scheduleTime)
                 .surgeryType(this.surgeryType.toString())

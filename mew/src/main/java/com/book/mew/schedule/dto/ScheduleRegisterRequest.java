@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ScheduleRegisterRequest {
     private String username;
-    private Integer birthDate;
-    private Integer phoneNumber;
+    private String birthDay;
+    private String phoneNumber;
     private String surgeryType;
     private String scheduleTime;
 

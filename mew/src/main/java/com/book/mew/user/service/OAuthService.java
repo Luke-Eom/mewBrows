@@ -7,7 +7,6 @@ import com.book.mew.user.dto.OAuthTokenResponse;
 import com.book.mew.user.enity.User;
 import com.book.mew.user.repository.UserRepository;
 import com.book.mew.user.security.JwtTokenProvider;
-import com.book.mew.user.security.TokenProvider;
 import com.nimbusds.openid.connect.sdk.claims.Gender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,9 +47,9 @@ public class OAuthService {
 
         return LoginResponse.builder()
                 .id(user.getId())
-                .name(user.getUserProfile().getNickName())
+                .name(user.getKakaoProfile().getNickName())
                 .email(user.getEmail())
-                .imageUrl(user.getUserProfile().getImageUrl())
+                .imageUrl(user.getKakaoProfile().getImageUrl())
                 .role(user.getRole())
                 .tokenType(BEARER_TYPE)
                 .accessToken(accessToken)

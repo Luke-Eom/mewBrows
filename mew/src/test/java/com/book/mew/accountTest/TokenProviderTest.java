@@ -1,6 +1,6 @@
 package com.book.mew.accountTest;
 
-import com.book.mew.user.security.TokenProvider;
+import com.book.mew.user.security.testingFiles.TokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

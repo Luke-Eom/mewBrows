@@ -1,6 +1,6 @@
 package com.book.mew.user.dto;
 
-import com.book.mew.userFeign.enums.Role;
+import com.book.mew.user.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

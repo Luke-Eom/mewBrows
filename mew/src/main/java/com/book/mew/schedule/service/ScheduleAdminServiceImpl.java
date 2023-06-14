@@ -7,11 +7,11 @@ import com.book.mew.schedule.entity.Schedule;
 import com.book.mew.schedule.enums.Status;
 import com.book.mew.schedule.repository.ScheduleRepository;
 import com.book.mew.surgeryType.enums.SurgeryTypes;
-import com.book.mew.userFeign.dto.UserRegisterRequest;
-import com.book.mew.userFeign.entity.User;
-import com.book.mew.userFeign.exceptions.UserNotFoundException;
-import com.book.mew.userFeign.repository.UserRepository;
-import com.book.mew.userFeign.service.UserService;
+
+import com.book.mew.user.enity.User;
+import com.book.mew.user.exceptions.UserNotFoundException;
+import com.book.mew.user.repository.UserRepository;
+import com.book.mew.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,16 +107,12 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
     @Transactional
     public ScheduleRegisterResponse insertSchedule(ScheduleRegisterRequest request) {
 
-        if(userRepo.findByUserNameAndPhoneNumber(request.getUsername(), request.getPhoneNumber()).isEmpty()){
-            userService.registerUser(UserRegisterRequest.builder()
-                            .userName(request.getUsername())
-                            .birthDate(request.getBirthDate())
-                            .phoneNumber(request.getPhoneNumber())
-                            .build());
+        if(userRepo.findByRealNameAndPhoneNumber(request.getUsername(), request.getPhoneNumber()).isEmpty()){
+            userService.registerUser(request.getUsername(), request.getBirthDay(), request.getPhoneNumber());
             System.out.println("회원 등록");
         }
 
-        User user = userRepo.findByUserNameAndPhoneNumber(request.getUsername(), request.getPhoneNumber())
+        User user = userRepo.findByRealNameAndPhoneNumber(request.getUsername(), request.getPhoneNumber())
                 .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다"));
 
         LocalDateTime scheduleTime = LocalDateTime.parse(request.getScheduleTime(), DateTimeFormatter.ISO_DATE_TIME);
@@ -129,11 +125,9 @@ public class ScheduleAdminServiceImpl implements ScheduleService {
                         .status(Status.CONFIRM)
                         .build());
 
-        System.out.println("예약 저장");
-
         return ScheduleRegisterResponse.builder()
                 .id(schedule.getId())
-                .userName(user.getUserName())
+                .userName(user.getRealName())
                 .build();
     }
 

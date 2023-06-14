@@ -1,13 +1,12 @@
 package com.book.mew.user.enity;
 
+import com.nimbusds.openid.connect.sdk.claims.Gender;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -15,22 +14,24 @@ import javax.persistence.OneToOne;
 @Getter
 public class KakaoProfile {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "kakao_profile_id")
     private Long id;
 
     private String nickName;
+    private String email;
+    private String birthDay;
 
-    private String phoneNumber;
+    private Gender gender;
 
-    @OneToOne(mappedBy = "kakaoProfile", fetch = FetchType.LAZY)
-    private User user;
-
-    private Integer age;
+    private String imageUrl;
 
     private String provider;
 
     private String providerId;
 
-    private String imageUrl;
-
+    @OneToOne(mappedBy = "kakaoProfile", fetch = FetchType.LAZY)
+    private User user;
 
 }
