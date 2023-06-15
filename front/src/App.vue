@@ -3,8 +3,8 @@
   <v-app>
     <v-main>
       <Header/>
-      <RouterView/>
       <SideNavbar/>
+      <RouterView/>
       <Footer/>
     </v-main>
   </v-app>

@@ -24,6 +24,18 @@
           <v-list density="compact" nav>
             <v-list-item v-for="item in items" :key="item.title" :prepend-icon="item.icon" :title="item.title" class="white-text" @click="pageLink"></v-list-item>
           </v-list>
+
+          <v-container fluid>
+            <v-row justify="center">
+              <v-col cols="12" sm="8" md="6">
+                <v-card class="pa-5">
+                  <v-img src="../assets/kakao_login_button.jpeg" height="100" class="mb-5"></v-img>
+                  <v-btn color="primary" block @click="loginWithKakao">Login with Kakao</v-btn>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+
         </v-navigation-drawer>
       </v-layout>
     </v-card>
@@ -31,8 +43,10 @@
 </template>
 
 <script>
+
 export default {
   name: 'SideNavbar',
+  components: {},
   data: () => {
     return {
       isHovered: false,
@@ -46,7 +60,11 @@ export default {
   methods: {
     pageLink() {
 
-    }
+    },
+    loginWithKakao() {
+      // Redirect the user to the Kakao login URL
+      window.location.href = "http://localhost:8080/login/oauth/kakao";
+    },
   }
 }
 </script>
@@ -55,6 +73,7 @@ export default {
 .expand-on-hover {
   width: 280px;
   transition: width 0.3s ease;
+  z-index: 100;
 }
 
 .white-text {

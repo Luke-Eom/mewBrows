@@ -72,7 +72,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 2;
 }
 
 .img {
