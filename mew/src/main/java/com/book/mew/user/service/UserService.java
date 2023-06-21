@@ -1,5 +1,7 @@
 package com.book.mew.user.service;
 
+import com.book.mew.schedule.entity.Schedule;
+import com.book.mew.schedule.enums.Status;
 import com.book.mew.user.dto.UserResponse;
 import com.book.mew.user.enity.User;
 import com.book.mew.user.exceptions.UserNotFoundException;
@@ -8,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,17 +62,15 @@ public class UserService {
     }
 
     // 이름으로 회원 조회
-    public UserResponse getUserByRealName(String userName) {
-        User user = userRepo.findByRealName(userName)
-                .orElseThrow(() -> new UserNotFoundException("ERROR_404", "회원 정보를 찾을 수 없습니다."));
+    public List<UserResponse> getUserByRealName(String userName) {
+        List<User> userList = userRepo.findByRealName(userName);
 
-        return UserResponse.builder()
-                .id(user.getId())
-                .name(user.getRealName())
-                .birthDay(user.getBirthDay())
-                .phoneNumber(user.getPhoneNumber())
-                .experience(!user.getSchedules().isEmpty())
-                .build();
+        return userList.stream()
+                .sorted(Comparator.comparing(user -> user.getSchedules().stream()
+                        .map(Schedule::getScheduleTime)
+                        .min(LocalDateTime::compareTo)
+                        .orElse(null)))
+                .map(User::toDto).collect(Collectors.toList());
     }
 
 }

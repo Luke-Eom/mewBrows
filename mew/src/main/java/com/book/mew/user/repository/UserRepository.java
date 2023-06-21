@@ -3,12 +3,13 @@ package com.book.mew.user.repository;
 import com.book.mew.user.enity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
-    Optional<User> findByRealName(String realName);
+    List<User> findByRealName(String realName);
 
     Optional<User> findByPhoneNumber(String phoneNumber);
 
