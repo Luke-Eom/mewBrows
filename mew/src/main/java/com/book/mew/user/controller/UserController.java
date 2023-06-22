@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public ResponseEntity<List<User>> getUserListByName(String name) {
+    public ResponseEntity<List<UserResponse>> getUserListByName(String name) {
 
         List<UserResponse> userList = userService.getUserByRealName(name);
 
